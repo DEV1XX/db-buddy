@@ -2,9 +2,9 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-  "dev": "nodemon server.js",
-  "start": "node server.js"
-},
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
   "dependencies": {
     "@clerk/express": "^1.7.60",
     "cors": "^2.8.5",
@@ -12,6 +12,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "mongodb": "^7.0.0",
+    "mongoose": "^9.0.2",
     "mysql2": "^3.16.0",
     "openai": "^6.15.0",
     "pg": "^8.16.3",

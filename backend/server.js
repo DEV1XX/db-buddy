@@ -1,7 +1,9 @@
 import express from "express";
 import cors from "cors";
 import { ENV } from "./src/config/env.js";
+import { connectDB } from "./src/config/appDb.js";
 
+connectDB();
 const app = express();
 
 app.use(cors());
