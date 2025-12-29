@@ -1,22 +1,33 @@
-//SCHEMA EXTRACTION AND STORAGE
+// SCHEMA EXTRACTION AND STORAGE
 import DatabaseConnection from "../models/DatabaseConnection.model.js";
 import SchemaMetadata from "../models/SchemaMetadata.model.js";
 import { decrypt } from "../services/encryption.service.js";
 import { createDbClient } from "../services/dbClient.service.js";
-import { getAuth } from "@clerk/express";
+import { formatSchema, compressSchema } from "../services/formatSchema.service.js";
 
 export async function extractSchema(req, res) {
   try {
-    const { userId } = getAuth(req);
+    const { userId } = req.auth();
     const { connectionId } = req.params;
 
-    const connection = await DatabaseConnection.findOne({ userId, connectionId });
+    const connection = await DatabaseConnection.findOne({
+      connectionId,
+      userId,
+    });
+
     if (!connection) {
       return res.status(404).json({ error: "Connection not found" });
     }
 
     const decryptedPassword = decrypt(connection.encryptedPassword);
-    const dbClient = await createDbClient({ ...connection.toObject(), decryptedPassword });
+
+    const connObj = connection.toObject();
+    delete connObj.encryptedPassword;
+
+    const dbClient = await createDbClient({
+      ...connObj,
+      decryptedPassword,
+    });
 
     let tables = [];
 
@@ -26,7 +37,6 @@ export async function extractSchema(req, res) {
         FROM INFORMATION_SCHEMA.COLUMNS
         WHERE TABLE_SCHEMA = '${connection.database}'
       `);
-
       tables = rows;
       await dbClient.end();
     }
@@ -41,19 +51,23 @@ export async function extractSchema(req, res) {
       await dbClient.end();
     }
 
+    const formattedTables = await formatSchema(tables);
+    const compressedTables = compressSchema(formattedTables);
+
     await SchemaMetadata.findOneAndUpdate(
       { connectionId },
       {
         userId,
         connectionId,
         schema: tables,
-        updatedAt: new Date(),
+        updatedAt: new Date()
       },
       { upsert: true }
     );
 
     res.json({ message: "Schema extracted successfully" });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Schema extraction failed" });
   }
 }

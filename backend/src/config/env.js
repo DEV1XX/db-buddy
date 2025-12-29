@@ -6,4 +6,6 @@ export const ENV = {
   APP_DB_URI: process.env.APP_DB_URI,
   ENCRYPTION_SECRET: process.env.ENCRYPTION_SECRET,
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+  GROQ_API_KEY: process.env.GROQ_API_KEY,
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY,
 };

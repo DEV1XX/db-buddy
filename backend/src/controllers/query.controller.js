@@ -7,13 +7,14 @@ import { decrypt } from "../services/encryption.service.js";
 import { createDbClient } from "../services/dbClient.service.js";
 import { nlToSql } from "../services/openai.service.js";
 import { isReadOnlyQuery } from "../services/sqlGuard.service.js";
+import {formatSchema, compressSchema} from "../services/formatSchema.service.js";
 
 export async function handleQuery(req, res) {
   const startTime = Date.now();
   let generatedSQL = "";
 
   try {
-    const { userId } = getAuth(req);
+    const { userId } = req.auth();
     const { connectionId, question } = req.body;
 
     if (!question || !connectionId) {
@@ -102,10 +103,10 @@ export async function handleQuery(req, res) {
     });
 
     // 6️⃣ Increment usage
-    await UsageMetric.updateOne(
-      { userId },
-      { $inc: { queryCount: 1 } }
-    );
+    // await UsageMetric.updateOne(
+    //   { userId },
+    //   { $inc: { queryCount: 1 } }
+    // );
 
     return res.json({
       sql: generatedSQL,
@@ -114,6 +115,7 @@ export async function handleQuery(req, res) {
     });
 
   } catch (err) {
+    console.error("Query execution error:", err);
     await QueryLog.create({
       userId: req?.auth?.userId,
       connectionId: req.body?.connectionId,
@@ -123,6 +125,9 @@ export async function handleQuery(req, res) {
       errorMessage: err.message,
     });
 
-    return res.status(500).json({ error: "Query execution failed" });
+    // return res.status(500).json({ error: "Query execution failed" });
+    return res.status(500).json({
+    error: err.message, // 👈 TEMPORARY for debugging
+  });
   }
 }
