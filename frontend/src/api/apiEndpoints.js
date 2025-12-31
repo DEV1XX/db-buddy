@@ -13,6 +13,14 @@ const API_ENDPOINTS = {
   QUERY: {
     EXECUTE: "/api/query/execute-query", // POST
   },
+
+  USER: {
+    CONNECTIONS: "/api/user/connections", // GET
+    QUERY_LOGS: "/api/user/query-logs", // GET
+    QUERY_LOGS_BY_DB: (connectionId) =>
+      `/api/user/query-logs/${connectionId}`, // GET
+    USAGE_METRICS: "/api/user/usage-metrics", // GET
+  }
 };
 
 export default API_ENDPOINTS;
