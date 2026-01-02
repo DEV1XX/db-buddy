@@ -16,7 +16,10 @@ export async function extractSchema(req, res) {
     });
 
     if (!connection) {
-      return res.status(404).json({ error: "Connection not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Connection not found",
+      });
     }
 
     const decryptedPassword = decrypt(connection.encryptedPassword);
@@ -60,14 +63,22 @@ export async function extractSchema(req, res) {
         userId,
         connectionId,
         schema: tables,
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
       { upsert: true }
     );
 
-    res.json({ message: "Schema extracted successfully" });
+    return res.status(200).json({
+      success: true,
+      message: "Schema extracted successfully",
+      formattedSchema: formattedTables,
+      compressedSchema: compressedTables,
+    });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Schema extraction failed" });
+    return res.status(500).json({
+      success: false,
+      message: "Schema extraction failed",
+    });
   }
 }
