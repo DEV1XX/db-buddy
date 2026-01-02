@@ -1,8 +1,10 @@
 import React from 'react';
 import { Database, Shield, Zap, Lock, Users, BarChart3, Code, CheckCircle, ArrowRight } from 'lucide-react';
 import { SignInButton, SignUpButton, SignedIn, SignedOut } from '@clerk/clerk-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function LandingPage() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen relative overflow-x-hidden">
       {/* Background Image with Dark Overlay */}
@@ -48,7 +50,9 @@ export default function LandingPage() {
                 </SignUpButton>
               </SignedOut>
               <SignedIn>
-                <button className="group px-8 py-4 backdrop-blur-2xl bg-white/20 border border-white/30 text-white rounded-xl text-lg font-semibold hover:bg-white/30 hover:shadow-lg hover:shadow-white/20 transition-all flex items-center space-x-2 shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                <button className="group px-8 py-4 backdrop-blur-2xl bg-white/20 border border-white/30 text-white rounded-xl text-lg font-semibold hover:bg-white/30 hover:shadow-lg hover:shadow-white/20 transition-all flex items-center space-x-2 shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                onClick={() => navigate('/dashboard')}
+                >
                   <span>Go to Dashboard</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>

@@ -32,3 +32,49 @@ export async function registerDatabase(req, res) {
     res.status(500).json({ error: "Failed to register database" });
   }
 }
+
+
+export async function deleteDatabase(req, res) {
+  const { userId } = req.auth(); // or req.getAuth()
+  const { connectionId } = req.params;
+
+  if (!connectionId) {
+    return res.status(400).json({
+      success: false,
+      message: "connectionId is required",
+    });
+  }
+
+  try {
+    const connection = await DatabaseConnection.findOne({
+      connectionId,
+      userId,
+    });
+
+    if (!connection) {
+      return res.status(404).json({
+        success: false,
+        message: "Database connection not found or unauthorized",
+      });
+    }
+
+    await Promise.all([
+      DatabaseConnection.deleteOne({ connectionId, userId }),
+      SchemaMetadata.deleteMany({ connectionId, userId }),
+      QueryLog.deleteMany({ connectionId, userId }),
+    ]);
+
+    return res.status(200).json({
+      success: true,
+      message: "Database connection deleted successfully",
+    });
+  } catch (error) {
+    console.error("Delete database error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to delete database connection",
+    });
+  }
+}
+
+

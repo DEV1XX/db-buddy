@@ -7,6 +7,7 @@ const API_ENDPOINTS = {
     REGISTER: "/api/database", // POST
     EXTRACT_SCHEMA: (connectionId) =>
       `/api/database/${connectionId}/schema`, // POST
+    DELETE: (connectionId) => `/api/database/delete/${connectionId}`, // DELETE
   },
   
   // Queries-
