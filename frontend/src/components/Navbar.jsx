@@ -45,24 +45,49 @@ const Navbar = () => {
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-6">
-              <a
-                href="#features"
-                className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
-              >
-                Features
-              </a>
-              <a
-                href="#how-it-works"
-                className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
-              >
-                How It Works
-              </a>
-              <a
-                href="#security"
-                className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
-              >
-                Security
-              </a>
+              {/* Signed Out Navigation */}
+              <SignedOut>
+                <a
+                  href="#features"
+                  className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                >
+                  Features
+                </a>
+                <a
+                  href="#how-it-works"
+                  className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                >
+                  How It Works
+                </a>
+                <a
+                  href="#security"
+                  className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                >
+                  Security
+                </a>
+              </SignedOut>
+
+              {/* Signed In Navigation */}
+              <SignedIn>
+                <a
+                  href="/dashboard"
+                  className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                >
+                  Dashboard
+                </a>
+                <a
+                  href="/"
+                  className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                >
+                  Landing Page
+                </a>
+                <a
+                  href="/history"
+                  className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                >
+                  History
+                </a>
+              </SignedIn>
 
               {/* Theme Toggle */}
               <button
@@ -125,27 +150,55 @@ const Navbar = () => {
           {/* Mobile Menu */}
           {isMenuOpen && (
             <div className="md:hidden mt-4 pt-4 border-t border-slate-200 dark:border-white/20 space-y-4">
-              <a
-                href="#features"
-                className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Features
-              </a>
-              <a
-                href="#how-it-works"
-                className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                How It Works
-              </a>
-              <a
-                href="#security"
-                className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Security
-              </a>
+              {/* Signed Out Mobile Navigation */}
+              <SignedOut>
+                <a
+                  href="#features"
+                  className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Features
+                </a>
+                <a
+                  href="#how-it-works"
+                  className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  How It Works
+                </a>
+                <a
+                  href="#security"
+                  className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Security
+                </a>
+              </SignedOut>
+
+              {/* Signed In Mobile Navigation */}
+              <SignedIn>
+                <a
+                  href="/dashboard"
+                  className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Dashboard
+                </a>
+                <a
+                  href="/"
+                  className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Landing Page
+                </a>
+                <a
+                  href="/history"
+                  className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  History
+                </a>
+              </SignedIn>
 
               <SignedOut>
                 <SignInButton mode="modal">
