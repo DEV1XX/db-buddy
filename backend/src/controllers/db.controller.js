@@ -1,5 +1,7 @@
 import { v4 as uuid } from "uuid";
 import DatabaseConnection from "../models/DatabaseConnection.model.js";
+import SchemaMetadata from "../models/SchemaMetadata.model.js";
+import QueryLog from "../models/QueryLog.model.js";
 import { encrypt } from "../services/encryption.service.js";
 
 export async function registerDatabase(req, res) {

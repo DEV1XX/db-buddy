@@ -1,16 +1,27 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useUser } from "@clerk/clerk-react";
+import { useDispatch, useSelector } from "react-redux";
 import { Database, TrendingUp, Activity, Clock, Server, Plus, Trash2 } from "lucide-react";
 import { ClipLoader } from "react-spinners";
 import toast, { Toaster } from "react-hot-toast";
 import api from "../api/axios";
 import API_ENDPOINTS from "../api/apiendpoints";
+import { 
+  setAllConnections, 
+  addConnection, 
+  removeConnection 
+} from "../redux/slices/connectionSlice";
 
 export default function Dashboard() {
   const { user } = useUser();
+  const dispatch = useDispatch();
 
-  const [databases, setDatabases] = useState([]);
+  // Redux state
+  const databases = useSelector((state) => state.connections.allIds.map(
+    id => state.connections.byId[id]
+  ));
+
   const [usage, setUsage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
@@ -23,7 +34,8 @@ export default function Dashboard() {
   const fetchConnections = async () => {
     try {
       const res = await api.get(API_ENDPOINTS.USER.CONNECTIONS);
-      setDatabases(res.connections || []);
+      const connections = res.connections || [];
+      dispatch(setAllConnections(connections));
     } catch (err) {
       console.error("Error fetching connections", err);
       toast.error("Failed to load connections");
@@ -58,7 +70,16 @@ export default function Dashboard() {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      await api.post(API_ENDPOINTS.DATABASE.REGISTER, data);
+      const res = await api.post(API_ENDPOINTS.DATABASE.REGISTER, data);
+      
+      // Dispatch to Redux with the returned connectionId
+      if (res.connectionId) {
+        dispatch(addConnection({ 
+          connectionId: res.connectionId,
+          ...data 
+        }));
+      }
+      
       reset();
       await fetchConnections();
       toast.success("Database connected successfully!");
@@ -82,6 +103,10 @@ export default function Dashboard() {
     
     try {
       await api.delete(API_ENDPOINTS.DATABASE.DELETE(connectionId));
+      
+      // Dispatch to Redux
+      dispatch(removeConnection(connectionId));
+      
       await fetchConnections();
       toast.success("Database connection deleted successfully", { id: loadingToast });
     } catch (err) {
