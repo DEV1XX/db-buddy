@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import UserDatabase from "./pages/UserDatabase";
 
 import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
+import HistoryPage from "./pages/HistoryPage";
 
 function App() {
   return (
@@ -39,6 +40,21 @@ function App() {
             <>
               <SignedIn>
                 <UserDatabase />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+
+        {/* Protected History Page */}
+        <Route
+          path="/history/:connectionId"
+          element={
+            <>
+              <SignedIn>
+                <HistoryPage />
               </SignedIn>
               <SignedOut>
                 <RedirectToSignIn />

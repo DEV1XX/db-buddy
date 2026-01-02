@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { Database, RefreshCw, Send, Terminal, AlertCircle } from "lucide-react";
+import { Database, RefreshCw, Send, Terminal, AlertCircle, History } from "lucide-react";
 import { ClipLoader } from "react-spinners";
 import toast, { Toaster } from "react-hot-toast";
 import api from "../api/axios";
@@ -13,6 +13,7 @@ import { useUser } from "@clerk/clerk-react";
 export default function UserDatabase() {
   
   const { connectionId } = useParams();
+  const navigate = useNavigate();
   const {user} = useUser();
 
   const {
@@ -136,12 +137,23 @@ export default function UserDatabase() {
           <div className="max-w-6xl mx-auto space-y-6">
             {/* Header */}
             <div className="mb-8">
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 flex items-center gap-3">
-                <Database className="w-10 h-10 md:w-12 md:h-12 text-blue-300" />
-                {user? `${user.firstName}'s Database `: "Database"}
-
-              </h1>
-              <p className="text-slate-200/80">Ask questions in natural language and explore your database schema</p>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 flex items-center gap-3">
+                    <Database className="w-10 h-10 md:w-12 md:h-12 text-blue-300" />
+                    {user ? `${user.firstName}'s Database ` : "Database"}
+                  </h1>
+                  <p className="text-slate-200/80">Ask questions in natural language and explore your database schema</p>
+                </div>
+                
+                <button
+                  onClick={() => navigate(`/history/${connectionId}`)}
+                  className="flex items-center gap-2 px-5 py-3 backdrop-blur-xl bg-white/20 border border-white/30 text-white rounded-xl font-medium hover:bg-white/30 transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)] whitespace-nowrap"
+                >
+                  <History className="w-5 h-5" />
+                  <span>View Query History</span>
+                </button>
+              </div>
             </div>
 
             {/* Database Schema Section */}
