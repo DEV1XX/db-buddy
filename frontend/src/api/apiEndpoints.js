@@ -21,6 +21,11 @@ const API_ENDPOINTS = {
     QUERY_LOGS_BY_DB: (connectionId) =>
       `/api/user/query-logs/${connectionId}`, // GET
     USAGE_METRICS: "/api/user/usage-metrics", // GET
+  },
+  PAYMENT:{
+    PRICING_PLANS: "/api/payments/pricing-plans", //GET
+    CREATE_ORDER:"/api/payments/create-order",
+    VERIFY:"/api/payments/verify"
   }
 };
 

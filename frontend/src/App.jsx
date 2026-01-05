@@ -7,6 +7,7 @@ import UserDatabase from "./pages/UserDatabase";
 
 import { SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import HistoryPage from "./pages/HistoryPage";
+import PricingPage from "./pages/PricingPage";
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
             </>
           }
         />
+        <Route path="/pricing" element={<PricingPage />} />
       </Routes>
     </BrowserRouter>
   );

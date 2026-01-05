@@ -8,6 +8,8 @@ import {
   getUserUsageMetrics,
 } from "../controllers/user.controller.js";
 
+import { reconcileUsageMetric } from "../middlewares/reconcileUsageMetric.middleware.js";
+
 const router = express.Router();
 
 /* =========================
@@ -24,6 +26,6 @@ router.get(
   getUserQueryLogsByDatabase
 );
 
-router.get("/usage-metrics", requireAuth(), getUserUsageMetrics);
+router.get("/usage-metrics", requireAuth(), reconcileUsageMetric,  getUserUsageMetrics);
 
 export default router;

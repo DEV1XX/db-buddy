@@ -12,6 +12,7 @@ import databaseRoutes from "./src/routes/database.routes.js";
 // import schemaRoutes from "./src/routes/schema.routes.js";
 import queryRoutes from "./src/routes/query.routes.js";
 import userDataRoutes from "./src/routes/userData.routes.js";
+import paymentRoutes from "./src/routes/payment.routes.js";
 
 // --------------------
 // App bootstrap
@@ -43,6 +44,7 @@ app.get("/health", (_, res) => {
 app.use("/api/database", databaseRoutes);
 // app.use("/api/schema", schemaRoutes);
 app.use("/api/query", queryRoutes);
+app.use("/api/payments", paymentRoutes);
 app.use("/api/user", userDataRoutes);
 
 // --------------------

@@ -2,7 +2,7 @@
 // COMPONENTS
 // ============================================
 
-const UsageMetricsSection = ({ usage, plan, queriesLeft, usagePercentage }) => (
+const UsageMetricsSection = ({ usage, plan, queriesLeft, usagePercentage, navigate }) => (
   <section className="mb-8">
     <div className="backdrop-blur-2xl bg-white/10 rounded-3xl border border-white/20 p-6 md:p-8 shadow-2xl shadow-white/10">
       <div className="flex items-center justify-between mb-6">
@@ -11,7 +11,7 @@ const UsageMetricsSection = ({ usage, plan, queriesLeft, usagePercentage }) => (
           Usage Metrics
         </h2>
         <button 
-          onClick={() => toast("Upgrade flow coming soon", { icon: "🚀" })}
+          onClick={() => navigate('/pricing')}
           className="px-4 py-2 backdrop-blur-xl bg-white/20 border border-white/30 text-white rounded-lg font-medium hover:bg-white/30 transition-all shadow-[0_0_10px_rgba(255,255,255,0.1)]"
         >
           Upgrade Plan
@@ -445,6 +445,7 @@ export default function Dashboard() {
                   plan={plan}
                   queriesLeft={queriesLeft}
                   usagePercentage={usagePercentage}
+                  navigate={navigate}
                 />
 
                 {/* Two Column Layout for Desktop */}
