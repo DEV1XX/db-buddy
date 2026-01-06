@@ -4,7 +4,7 @@ import { ClipLoader } from 'react-spinners';
 import toast, { Toaster } from 'react-hot-toast';
 import { useUser } from '@clerk/clerk-react';
 import api from '../api/axios';
-import API_ENDPOINTS from '../api/apiendpoints';
+import API_ENDPOINTS from '../api/apiEndpoints';
 
 /* =========================
    LOAD RAZORPAY SCRIPT

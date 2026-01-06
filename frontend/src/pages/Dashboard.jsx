@@ -262,7 +262,7 @@ import { Database, TrendingUp, Activity, Clock, Server, Plus, Trash2 } from "luc
 import { ClipLoader } from "react-spinners";
 import toast, { Toaster } from "react-hot-toast";
 import api from "../api/axios";
-import API_ENDPOINTS from "../api/apiendpoints";
+import API_ENDPOINTS from "../api/apiEndpoints";
 import { useNavigate } from "react-router-dom";
 import { 
   setAllConnections, 
