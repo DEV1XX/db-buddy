@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Database, Menu, X } from "lucide-react";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { useNavigate } from "react-router-dom";
 import {
   SignedIn,
   SignedOut,
@@ -11,6 +12,7 @@ import {
 } from "@clerk/clerk-react";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return localStorage.getItem("darkMode") === "true";
   });
@@ -65,6 +67,12 @@ const Navbar = () => {
                 >
                   Security
                 </a>
+                <a
+                  href="/pricing"
+                  className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                >
+                  Pricing
+                </a>
               </SignedOut>
 
               {/* Signed In Navigation */}
@@ -79,13 +87,13 @@ const Navbar = () => {
                   href="/"
                   className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
                 >
-                  Landing Page
+                  Home
                 </a>
                 <a
-                  href="/history"
+                  href="/pricing"
                   className="text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
                 >
-                  History
+                  Pricing
                 </a>
               </SignedIn>
 
@@ -122,7 +130,6 @@ const Navbar = () => {
 
             {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center space-x-3">
-              {/* Theme Toggle Mobile */}
               <button
                 onClick={toggleTheme}
                 className="rounded-full bg-slate-200/80 dark:bg-slate-700/80 backdrop-blur-sm h-9 w-9 flex items-center justify-center hover:scale-110 transition-transform text-slate-700 dark:text-slate-200"
@@ -173,6 +180,13 @@ const Navbar = () => {
                 >
                   Security
                 </a>
+                <a
+                  href="/pricing"
+                  className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Pricing
+                </a>
               </SignedOut>
 
               {/* Signed In Mobile Navigation */}
@@ -189,14 +203,14 @@ const Navbar = () => {
                   className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Landing Page
+                  Home
                 </a>
                 <a
-                  href="/history"
+                  href="/pricing"
                   className="block text-slate-700 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  History
+                  Pricing
                 </a>
               </SignedIn>
 
