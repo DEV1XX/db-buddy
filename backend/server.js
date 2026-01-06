@@ -24,8 +24,14 @@ const app = express();
 // --------------------
 // Global Middlewares
 // --------------------
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://db-buddy-1.onrender.com",
+];
+
 app.use(cors({
-  origin: "http://localhost:5173", // frontend origin
+  origin: allowedOrigins,
   credentials: true,
 }));
 app.use(express.json());
