@@ -5,7 +5,7 @@ import { Database, RefreshCw, Send, Terminal, AlertCircle, History } from "lucid
 import { ClipLoader } from "react-spinners";
 import toast, { Toaster } from "react-hot-toast";
 import api from "../api/axios";
-import API_ENDPOINTS from "../api/apiendpoints";
+import API_ENDPOINTS from "../api/apiEndpoints";
 import { useUser } from "@clerk/clerk-react";
 
 
