@@ -1,5 +1,5 @@
 import React from 'react';
-import { Database, Shield, Zap, Lock, Users, BarChart3, Code, CheckCircle, ArrowRight } from 'lucide-react';
+import { Database, Shield, Zap, Lock, Users, BarChart3, Code, CheckCircle, ArrowRight, Sparkles } from 'lucide-react';
 import { SignInButton, SignUpButton, SignedIn, SignedOut } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,6 +22,16 @@ export default function LandingPage() {
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-400/10 rounded-full filter blur-3xl"></div>
           <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-violet-400/8 rounded-full filter blur-3xl"></div>
           <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-indigo-400/8 rounded-full filter blur-3xl"></div>
+        </div>
+      </div>
+
+      {/* Powered by AI Badge */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <div className="backdrop-blur-xl bg-gradient-to-r from-blue-500/20 to-violet-500/20 border border-white/30 rounded-full px-4 py-2 shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-blue-300 animate-pulse" />
+            <span className="text-white font-medium text-sm">Powered by AI</span>
+          </div>
         </div>
       </div>
 
