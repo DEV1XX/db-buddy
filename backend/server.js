@@ -26,8 +26,9 @@ const app = express();
 // --------------------
 
 const allowedOrigins = [
-  "http://localhost:5173",
-  "https://db-buddy-1.onrender.com",
+  // "http://localhost:5173",
+  // "https://db-buddy-1.onrender.com",
+  "https://db-buddy.tech", "https://www.db-buddy.tech"
 ];
 
 app.use(cors({

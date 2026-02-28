@@ -92,7 +92,7 @@ const ConnectedDatabasesSection = ({ databases, handleDeleteConnection, navigate
     <div className="backdrop-blur-2xl bg-white/10 rounded-3xl border border-white/20 p-6 md:p-8 shadow-2xl shadow-white/10 h-full">
       <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center gap-3">
         <Server className="w-7 h-7 text-blue-300" />
-        Connected Databases
+        Connected Databases. Click!
       </h2>
 
       {databases.length === 0 ? (
