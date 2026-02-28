@@ -31,10 +31,20 @@ const allowedOrigins = [
   "https://db-buddy.tech", "https://www.db-buddy.tech"
 ];
 
+// app.use(cors({
+//   origin: allowedOrigins,
+//   credentials: true,
+// }));
+
 app.use(cors({
-  origin: allowedOrigins,
+  origin: ["https://db-buddy.tech", "https://www.db-buddy.tech"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 }));
+
+app.options("*", cors());
+
 app.use(express.json());
 app.use(clerkMiddleware());
 
