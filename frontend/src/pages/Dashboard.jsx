@@ -264,6 +264,11 @@ import toast, { Toaster } from "react-hot-toast";
 import api from "../api/axios";
 import API_ENDPOINTS from "../api/apiEndpoints";
 import { useNavigate } from "react-router-dom";
+
+import { useApi } from "../hooks/useApi";
+
+
+
 import { 
   setAllConnections, 
   addConnection, 
@@ -285,6 +290,7 @@ export default function Dashboard() {
   const [initialLoading, setInitialLoading] = useState(true);
 
   const { register, handleSubmit, reset } = useForm();
+  const authApi = useApi();
 
   /* =========================
      FETCH CONNECTED DATABASES
@@ -305,6 +311,7 @@ export default function Dashboard() {
      ========================= */
   const fetchUsageMetrics = async () => {
     try {
+      const apiClient = await authApi();
       const res = await api.get(API_ENDPOINTS.USER.USAGE_METRICS);
       setUsage(res.usage);
     } catch (err) {
