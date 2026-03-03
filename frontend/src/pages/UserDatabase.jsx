@@ -7,6 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import api from "../api/axios";
 import API_ENDPOINTS from "../api/apiEndpoints";
 import { useUser } from "@clerk/clerk-react";
+import { useApi } from "../hooks/useApi";
 
 
 
@@ -29,6 +30,7 @@ export default function UserDatabase() {
   const [queryLoading, setQueryLoading] = useState(false);
   const [output, setOutput] = useState(null);
   const [error, setError] = useState(null);
+  const authApi = useApi();
 
   /* =========================
      FETCH DB SCHEMA
@@ -37,7 +39,8 @@ export default function UserDatabase() {
     try {
       setSchemaLoading(true);
       setError(null);
-
+      
+      const apiClient = await authApi();
       const res = await api.post(
         API_ENDPOINTS.DATABASE.EXTRACT_SCHEMA(connectionId)
       );
@@ -62,7 +65,8 @@ export default function UserDatabase() {
       setOutput(null);
       setError(null);
 
-      const res = await api.post(API_ENDPOINTS.QUERY.EXECUTE, {
+      const apiClient = await authApi();
+      const res = await apiClient.post(API_ENDPOINTS.QUERY.EXECUTE, {
         connectionId,
         question: data.nlQuery,
       });

@@ -5,6 +5,7 @@ import { ClipLoader } from "react-spinners";
 import { toast, Toaster } from "react-hot-toast";
 import api from "../api/axios";
 import API_ENDPOINTS from "../api/apiEndpoints";
+import { useApi } from "../hooks/useApi";
 
 export default function HistoryPage() {
   const { connectionId } = useParams();
@@ -12,6 +13,8 @@ export default function HistoryPage() {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const authApi = useApi();
+
 
   /* =========================
      FETCH QUERY HISTORY
@@ -20,8 +23,9 @@ export default function HistoryPage() {
     try {
       setLoading(true);
       setError(null);
-
-      const res = await api.get(
+      
+      const apiClient = await authApi();
+      const res = await apiClient.get(
         API_ENDPOINTS.USER.QUERY_LOGS_BY_DB(connectionId)
       );
 
