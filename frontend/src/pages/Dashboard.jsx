@@ -297,7 +297,8 @@ export default function Dashboard() {
      ========================= */
   const fetchConnections = async () => {
     try {
-      const res = await api.get(API_ENDPOINTS.USER.CONNECTIONS);
+      const apiClient = await authApi();
+      const res = await apiClient.get(API_ENDPOINTS.USER.CONNECTIONS);
       const connections = res.connections || [];
       dispatch(setAllConnections(connections));
     } catch (err) {
@@ -335,7 +336,8 @@ export default function Dashboard() {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      const res = await api.post(API_ENDPOINTS.DATABASE.REGISTER, data);
+      const apiClient = await authApi();
+      const res = await apiClient.post(API_ENDPOINTS.DATABASE.REGISTER, data);
       
       // Dispatch to Redux with the returned connectionId
       if (res.connectionId) {
@@ -367,7 +369,8 @@ export default function Dashboard() {
     const loadingToast = toast.loading("Deleting connection...");
     
     try {
-      await api.delete(API_ENDPOINTS.DATABASE.DELETE(connectionId));
+      const apiClient = await authApi();
+      await apiClient.delete(API_ENDPOINTS.DATABASE.DELETE(connectionId));
       
       // Dispatch to Redux
       dispatch(removeConnection(connectionId));
