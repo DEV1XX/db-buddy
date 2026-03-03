@@ -41,7 +41,7 @@ export default function UserDatabase() {
       setError(null);
       
       const apiClient = await authApi();
-      const res = await api.post(
+      const res = await apiClient.post(
         API_ENDPOINTS.DATABASE.EXTRACT_SCHEMA(connectionId)
       );
 
