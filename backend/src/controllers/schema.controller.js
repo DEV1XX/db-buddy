@@ -75,10 +75,13 @@ export async function extractSchema(req, res) {
       compressedSchema: compressedTables,
     });
   } catch (err) {
-    console.error(err);
-    return res.status(500).json({
-      success: false,
-      message: "Schema extraction failed",
+    console.error("SCHEMA ERROR:", err);
+
+  return res.status(500).json({
+    success: false,
+    message: "Schema extraction failed",
+    error: err.message,
+    stack: err.stack
     });
   }
 }
